@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ResponseService;
 
 class ArticleModel extends Model
 {
@@ -30,7 +31,13 @@ class ArticleModel extends Model
     {
         $statement = self::$pdo->prepare("SELECT * FROM articles WHERE id = :id");
         $statement->execute(["id" => $id]);
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        $article = $statement->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$article) {
+            ResponseService::Error("Article not found", 404);
+        }
+
+        return $article;
     }
 
     public function create($article)
