@@ -22,6 +22,9 @@ EnvService::Init();
 // initialize error reporting (on in local env)
 ErrorReportingService::Init();
 
+// set CORS headers
+ResponseService::SetCorsHeaders();
+
 /**
  * Main application routes
  */
@@ -36,17 +39,28 @@ try {
         $articleController->getAll();
     });
     // get article by id
-    Route::add('/article/([a-z-0-9-]*)', function ($id) {
+    Route::add('/articles/([a-z-0-9-]*)', function ($id) {
         $articleController = new ArticleController();
         $articleController->get($id);
     });
     // create article route
-    Route::add('/article', function () {
+    Route::add('/articles', function () {
         $articleController = new ArticleController();
         $articleController->create($_POST);
     }, ["post"]);
+    // update article by id
+    Route::add('/articles/([0-9]*)', function ($id) {
+        sleep(3); // adding a timeout to demonstrate UI loading state
+        $articleController = new ArticleController();
+        $articleController->update($id);
+    }, 'put');
+    // delete article by id
+    Route::add('/articles/([0-9]*)', function ($id) {
+        $articleController = new ArticleController();
+        $articleController->delete($id);
+    }, 'delete');
     // generate qr code for article
-    Route::add('/article/qr-code/([a-z-0-9-]*)', function ($id) {
+    Route::add('/articles/qr-code/([a-z-0-9-]*)', function ($id) {
         $articleController = new ArticleController();
         $articleController->getQrCode($id);
     });
