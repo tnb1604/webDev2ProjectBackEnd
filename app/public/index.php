@@ -6,12 +6,12 @@
 
 // require autoload file to autoload vendor libraries
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../controllers/GameController.php';
 
 // require local classes
 use App\Services\EnvService;
 use App\Services\ErrorReportingService;
 use App\Services\ResponseService;
-use App\Controllers\ArticleController;
 
 // require vendor libraries
 use Steampixel\Route;
@@ -30,44 +30,57 @@ ResponseService::SetCorsHeaders();
  */
 // top level fail-safe try/catch
 try {
-    /**
-     * Article routes
-     */
-    // paginated get all articles route: /articles?page=1
-    Route::add('/articles', function () {
-        $articleController = new ArticleController();
-        $articleController->getAll();
-    });
-    // get article by id
-    Route::add('/articles/([a-z-0-9-]*)', function ($id) {
-        $articleController = new ArticleController();
-        $articleController->get($id);
-    });
-    // create article route
-    Route::add('/articles', function () {
-        $articleController = new ArticleController();
-        $articleController->create($_POST);
-    }, ["post"]);
-    // update article by id
-    Route::add('/articles/([0-9]*)', function ($id) {
-        sleep(3); // adding a timeout to demonstrate UI loading state
-        $articleController = new ArticleController();
-        $articleController->update($id);
-    }, 'put');
-    // delete article by id
-    Route::add('/articles/([0-9]*)', function ($id) {
-        $articleController = new ArticleController();
-        $articleController->delete($id);
-    }, 'delete');
-    // generate qr code for article
-    Route::add('/articles/qr-code/([a-z-0-9-]*)', function ($id) {
-        $articleController = new ArticleController();
-        $articleController->getQrCode($id);
+
+    // Get all games
+    Route::add('/games', function () {
+        $gameController = new GameController();
+        $gameController->getAll();
     });
 
-    /**
-     * 404 route handler
-     */
+    // Get a game by ID
+    Route::add('/games/([0-9]*)', function ($id) {
+        $gameController = new GameController();
+        $gameController->get($id);
+    });
+
+    // Create a new game
+    Route::add('/games', function () {
+        $gameController = new GameController();
+        $gameController->create($_POST);
+    }, ["post"]);
+
+    Route::add('/games/([0-9]*)', function ($id) {
+        $gameController = new GameController();
+
+        // get json data from request body
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        // validate data
+        if (!$data) {
+            ResponseService::Error("Invalid JSON data", 400);
+            return;
+        }
+
+        $gameController->update(
+            $id,
+            $data['title'] ?? null,
+            $data['description'] ?? null,
+            $data['genre'] ?? null,
+            $data['release_date'] ?? null,
+            $data['image_path'] ?? null
+        );
+    }, ['put']);
+
+
+
+    // Delete a game by ID
+    Route::add('/games/([0-9]*)', function ($id) {
+        $gameController = new GameController();
+        $gameController->delete($id);
+    }, 'delete');
+
+
+    // 404 route handler
     Route::pathNotFound(function () {
         ResponseService::Error("route is not defined", 404);
     });
