@@ -1,0 +1,683 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2025-03-09T23:25:18.612Z",
+    "__export_source": "insomnia.desktop.app:v10.3.1",
+    "resources": [
+        {
+            "_id": "req_544ee7cf324f492d8338cfafb0d1bed7",
+            "parentId": "fld_103428292b9d4736879772772814c73a",
+            "modified": 1741561196020,
+            "created": 1741560519982,
+            "url": "http://localhost/auth/register",
+            "name": "Register New User",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"username\": \"joh2222n3_doe\",\n  \"email\": \"john.do23e@333example.com\",\n  \"password\": \"newpassword\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741560519982,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_103428292b9d4736879772772814c73a",
+            "parentId": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "modified": 1741560524412,
+            "created": 1741560517831,
+            "name": "User",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1741560517831,
+            "environmentType": "kv",
+            "_type": "request_group"
+        },
+        {
+            "_id": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "parentId": null,
+            "modified": 1741470975350,
+            "created": 1741470975350,
+            "name": "The Game Review Website",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_383182245224415dab9e68be544b4bed",
+            "parentId": "fld_103428292b9d4736879772772814c73a",
+            "modified": 1741561258502,
+            "created": 1741561218330,
+            "url": "http://localhost/auth/login",
+            "name": "Login",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"email\": \"newus3er@example.com\",\n  \"password\": \"securepass3word\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741560519882,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_d536aea4b36641edbd80e6ad4f64ec24",
+            "parentId": "fld_2dbc84c9d746402cb863f42c7aba3f57",
+            "modified": 1741534030330,
+            "created": 1741496602966,
+            "url": "http://localhost/reviews/5/votes",
+            "name": "Get Likes/Dislikes For Review",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741496602966,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_2dbc84c9d746402cb863f42c7aba3f57",
+            "parentId": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "modified": 1741492396750,
+            "created": 1741492396750,
+            "name": "Review Likes",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1741492396750,
+            "environmentType": "kv",
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_5f80eeccfceb4b7cb6441a2151ba1f59",
+            "parentId": "fld_2dbc84c9d746402cb863f42c7aba3f57",
+            "modified": 1741533635349,
+            "created": 1741492046737,
+            "url": "http://localhost/reviews/5/like/1",
+            "name": "Like Review",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": ""
+            },
+            "parameters": [
+                {
+                    "id": "pair_174fd72ff47f46d59087c26098ca7a66",
+                    "name": "",
+                    "value": "",
+                    "description": "",
+                    "disabled": false
+                },
+                {
+                    "id": "pair_e5d5b2868d4c4970ab5825d366385472",
+                    "name": "",
+                    "value": "",
+                    "description": "",
+                    "disabled": false
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741492399638,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_661195d2aaa041fd8c1fd0c9be571c23",
+            "parentId": "fld_2dbc84c9d746402cb863f42c7aba3f57",
+            "modified": 1741534018387,
+            "created": 1741492403992,
+            "url": "http://localhost/reviews/5/dislike/1",
+            "name": "Dislike Review",
+            "description": "",
+            "method": "POST",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741492399588,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c9c0522f0e9641c797a91e3384846de1",
+            "parentId": "fld_d87668c0cb7d4d7db1a3ad9feb5d98e3",
+            "modified": 1741496206110,
+            "created": 1741472332729,
+            "url": "http://localhost/reviews/game/19",
+            "name": "Get Reviews By Game",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741491350916,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_d87668c0cb7d4d7db1a3ad9feb5d98e3",
+            "parentId": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "modified": 1741472328281,
+            "created": 1741472328281,
+            "name": "Reviews",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1741472328281,
+            "environmentType": "kv",
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_1a18e3b3715843b5ac091e7df3a05718",
+            "parentId": "fld_d87668c0cb7d4d7db1a3ad9feb5d98e3",
+            "modified": 1741495543016,
+            "created": 1741491306528,
+            "url": "http://localhost/reviews/2",
+            "name": "Get Review By Id",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741491350891,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_d109020745db497fa22f7f045abe9a13",
+            "parentId": "fld_d87668c0cb7d4d7db1a3ad9feb5d98e3",
+            "modified": 1741495572903,
+            "created": 1741491304590,
+            "url": "http://localhost/reviews",
+            "name": "Create Review",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"gameId\": 19,\n  \"userId\": 3,\n  \"rating\": 4,\n  \"comment\": \"This is a great game!\"\n}\n"
+            },
+            "parameters": [
+                {
+                    "id": "pair_73c3b9b4bc394897b52a45bc92dc3cfc",
+                    "name": "",
+                    "value": "",
+                    "description": "",
+                    "disabled": false
+                },
+                {
+                    "id": "pair_eb835619fea746f99bfe3395cee8f6d8",
+                    "name": "",
+                    "value": "",
+                    "description": "",
+                    "disabled": false
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741491350866,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_2a6d4b749feb4a189b45bc1a61607754",
+            "parentId": "fld_d87668c0cb7d4d7db1a3ad9feb5d98e3",
+            "modified": 1741495702972,
+            "created": 1741491335299,
+            "url": "http://localhost/reviews/2",
+            "name": "Update Review",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"rating\": 5,\n  \"comment\": \"Updated comme3333333333nt for this review.\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741491350791,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_473b6bd738a640ef86d774cf560fda9e",
+            "parentId": "fld_d87668c0cb7d4d7db1a3ad9feb5d98e3",
+            "modified": 1741496116332,
+            "created": 1741491350716,
+            "url": "http://localhost/reviews/7",
+            "name": "Delete Review",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741491350716,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_dabe633e02f1405fa30490d21950d3cc",
+            "parentId": "fld_816831a6930e4c7b8cd8e63a8e26d0b3",
+            "modified": 1741491393785,
+            "created": 1741177793536,
+            "url": "http://localhost/games?page=2",
+            "name": "Get All Games",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741486905279,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_816831a6930e4c7b8cd8e63a8e26d0b3",
+            "parentId": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "modified": 1741472319037,
+            "created": 1741472264065,
+            "name": "Games",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1741472264265,
+            "environmentType": "kv",
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_a033c5850148469d954bd26ecb31db63",
+            "parentId": "fld_816831a6930e4c7b8cd8e63a8e26d0b3",
+            "modified": 1741491395268,
+            "created": 1741370387350,
+            "url": "http://localhost/games/2",
+            "name": "Get Game By Id",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741486905229,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_d9241ff73f4041b0b7814e38e958752b",
+            "parentId": "fld_816831a6930e4c7b8cd8e63a8e26d0b3",
+            "modified": 1741491396922,
+            "created": 1741485649232,
+            "url": "http://localhost/games",
+            "name": "Create Game (With Image Upload)",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "multipart/form-data",
+                "params": [
+                    {
+                        "id": "pair_908a437b4f7e483e86eb284d7438f385",
+                        "name": "title",
+                        "value": "I am Cool",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_d2fdf7f511ff4843ae4b0c93cc762f25",
+                        "name": "description",
+                        "value": "I am Cool",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_4f6f9b42ecea4e5c97b3ca89850a9bdd",
+                        "name": "genre",
+                        "value": "I am Cool",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_e2f97624b9fb4b2f816fa9a4def389ca",
+                        "name": "release_date",
+                        "value": "2002-12-31",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_315a560f7e844fd39ede5d8f8331a5ab",
+                        "name": "image",
+                        "value": "",
+                        "description": "",
+                        "disabled": false,
+                        "type": "file",
+                        "fileName": "C:\\Users\\damis\\Downloads\\rizzySprite.webp"
+                    }
+                ]
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "multipart/form-data"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741486905204,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_8d2e105c01c040669c63cde557e9a232",
+            "parentId": "fld_816831a6930e4c7b8cd8e63a8e26d0b3",
+            "modified": 1741488182762,
+            "created": 1741486905179,
+            "url": "http://localhost/games/27",
+            "name": "Update Game (With Image Upload)",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "multipart/form-data",
+                "params": [
+                    {
+                        "id": "pair_240e49469d3943718304e53a28231b0e",
+                        "name": "title",
+                        "value": "yerrrrrrrr",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_9a794a7f03aa4257b395b30f0dd61b26",
+                        "name": "description",
+                        "value": "yer man",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_4e603685d10448558aa11054f494b168",
+                        "name": "genre",
+                        "value": "yer man",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_e1abd297128647d3b204962a9007b858",
+                        "name": "release_date",
+                        "value": "2001-01-02",
+                        "description": "",
+                        "disabled": false
+                    },
+                    {
+                        "id": "pair_3a3d71a7c9f244c9975dea5f723772a6",
+                        "name": "image",
+                        "value": "",
+                        "description": "",
+                        "disabled": false,
+                        "type": "file",
+                        "fileName": "C:\\Users\\damis\\Downloads\\sigmaBling.jpg"
+                    }
+                ]
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "multipart/form-data"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741486905179,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c895a3ea16474c45861fd773c82fc70a",
+            "parentId": "fld_816831a6930e4c7b8cd8e63a8e26d0b3",
+            "modified": 1741495984096,
+            "created": 1741472245511,
+            "url": "http://localhost/games/555",
+            "name": "Delete Game",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/10.3.1"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1741472299829,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_290a5abae64a4ee4b76b29df7ab6f714",
+            "parentId": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "modified": 1741177751734,
+            "created": 1741177751734,
+            "name": "Base Environment",
+            "data": {},
+            "dataPropertyOrder": null,
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1741177751734,
+            "environmentType": "kv",
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_a54f1c82b0d845c18aee3cc9a012d041",
+            "parentId": "wrk_0af6eab5bab9492dbfb1919237d02ea6",
+            "modified": 1741177751738,
+            "created": 1741177751738,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        }
+    ]
+}
