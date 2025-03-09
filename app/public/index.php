@@ -123,12 +123,18 @@ try {
     Route::add('/reviews/([0-9]*)/like/([0-9]*)', function ($reviewId, $userId) {
         $reviewController = new ReviewController();
         $reviewController->like($reviewId, $userId);
-    });
+    }, ['post']);
 
     // Dislike a review
     Route::add('/reviews/([0-9]*)/dislike/([0-9]*)', function ($reviewId, $userId) {
         $reviewController = new ReviewController();
         $reviewController->dislike($reviewId, $userId);
+    }, ['post']);
+
+    // Get likes and dislikes for a review
+    Route::add('/reviews/([0-9]*)/votes', function ($reviewId) {
+        $reviewController = new ReviewController();
+        $reviewController->getVotes($reviewId);
     });
 
 

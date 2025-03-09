@@ -50,10 +50,6 @@ class ReviewModel extends Model
         return $stmt->execute([$reviewId]); // Return true if successful, false otherwise
     }
 
-
-
-
-
     public function getVoteByUser($reviewId, $userId)
     {
         $stmt = self::$pdo->prepare("SELECT * FROM review_likes WHERE review_id = ? AND user_id = ?");
@@ -79,5 +75,17 @@ class ReviewModel extends Model
         return $stmt->execute([$reviewId, $userId]); // Delete the vote
     }
 
+    public function getLikesCount($reviewId)
+    {
+        $stmt = self::$pdo->prepare("SELECT COUNT(*) as count FROM review_likes WHERE review_id = ? AND type = 'like'");
+        $stmt->execute([$reviewId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['count']; // Return the count of likes
+    }
 
+    public function getDislikesCount($reviewId)
+    {
+        $stmt = self::$pdo->prepare("SELECT COUNT(*) as count FROM review_likes WHERE review_id = ? AND type = 'dislike'");
+        $stmt->execute([$reviewId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['count']; // Return the count of dislikes
+    }
 }

@@ -29,7 +29,11 @@ class ReviewController
     {
         $review = $this->reviewModel->getReviewById($reviewId);
         if ($review) {
-            ResponseService::Send($review); // Send the review data
+            $likesCount = $this->reviewModel->getLikesCount($reviewId);
+            $dislikesCount = $this->reviewModel->getDislikesCount($reviewId);
+            $review['likes'] = $likesCount;
+            $review['dislikes'] = $dislikesCount;
+            ResponseService::Send($review); // Send the review data with likes and dislikes count
         } else {
             ResponseService::Error("Review not found", 404); // If review doesn't exist
         }
@@ -82,10 +86,10 @@ class ReviewController
 
         if ($existingVote) {
             // If the user has already liked, toggle to remove the like
-            if ($existingVote['vote'] == 'like') {
+            if ($existingVote['type'] == 'like') {
                 $this->reviewModel->removeVote($reviewId, $userId); // Remove the like
                 ResponseService::Send(["message" => "Like removed"]);
-            } elseif ($existingVote['vote'] == 'dislike') {
+            } elseif ($existingVote['type'] == 'dislike') {
                 // If the user has disliked, change it to like
                 $this->reviewModel->updateVote($reviewId, $userId, 'like');
                 ResponseService::Send(["message" => "Like added, dislike removed"]);
@@ -104,10 +108,10 @@ class ReviewController
 
         if ($existingVote) {
             // If the user has already disliked, toggle to remove the dislike
-            if ($existingVote['vote'] == 'dislike') {
+            if ($existingVote['type'] == 'dislike') {
                 $this->reviewModel->removeVote($reviewId, $userId); // Remove the dislike
                 ResponseService::Send(["message" => "Dislike removed"]);
-            } elseif ($existingVote['vote'] == 'like') {
+            } elseif ($existingVote['type'] == 'like') {
                 // If the user has liked, change it to dislike
                 $this->reviewModel->updateVote($reviewId, $userId, 'dislike');
                 ResponseService::Send(["message" => "Dislike added, like removed"]);
@@ -119,5 +123,19 @@ class ReviewController
         }
     }
 
+    public function getVotes($reviewId)
+    {
+        $review = $this->reviewModel->getReviewById($reviewId);
+        if ($review) {
+            $likesCount = $this->reviewModel->getLikesCount($reviewId);
+            $dislikesCount = $this->reviewModel->getDislikesCount($reviewId);
+            ResponseService::Send([
+                'likes' => $likesCount,
+                'dislikes' => $dislikesCount
+            ]);
+        } else {
+            ResponseService::Error("Review not found", 404); // If review doesn't exist
+        }
+    }
 
 }
