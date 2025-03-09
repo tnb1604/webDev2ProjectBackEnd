@@ -7,6 +7,7 @@
 // require autoload file to autoload vendor libraries
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../controllers/GameController.php';
+require_once __DIR__ . '/../controllers/ReviewController.php';
 
 // require local classes
 use App\Services\EnvService;
@@ -31,6 +32,7 @@ ResponseService::SetCorsHeaders();
 // top level fail-safe try/catch
 try {
 
+    // ##################################### Game Routes ##################################### \\
     // Get all games
     Route::add('/games', function () {
         $gameController = new GameController();
@@ -65,14 +67,74 @@ try {
         }
     }, ['post']);
 
-
     // Delete a game by ID
     Route::add('/games/([0-9]*)', function ($id) {
         $gameController = new GameController();
         $gameController->delete($id);
     }, 'delete');
 
-    // 404 route handler
+
+
+
+    // ##################################### Review Routes ##################################### \\
+    // Get all reviews for a game
+    Route::add('/reviews/game/([0-9]*)', function ($gameId) {
+        $reviewController = new ReviewController();
+        $reviewController->getByGame($gameId);
+    });
+
+    // Get a review by its ID
+    Route::add('/reviews/([0-9]*)', function ($reviewId) {
+        $reviewController = new ReviewController();
+        $reviewController->get($reviewId);
+    });
+
+    // Create a new review
+    Route::add('/reviews', function () {
+        // Example: Expecting JSON body with gameId, userId, rating, comment
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (isset($data['gameId'], $data['userId'], $data['rating'], $data['comment'])) {
+            $reviewController = new ReviewController();
+            $reviewController->create($data['gameId'], $data['userId'], $data['rating'], $data['comment']);
+        } else {
+            ResponseService::Error("Missing required fields", 400);
+        }
+    }, ['post']);
+
+    // Update an existing review
+    Route::add('/reviews/([0-9]*)', function ($reviewId) {
+        // Example: Expecting JSON body with rating and comment
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (isset($data['rating'], $data['comment'])) {
+            $reviewController = new ReviewController();
+            $reviewController->update($reviewId, $data['rating'], $data['comment']);
+        } else {
+            ResponseService::Error("Missing required fields", 400);
+        }
+    }, ['put']);
+
+    // Delete a review by ID
+    Route::add('/reviews/([0-9]*)', function ($reviewId) {
+        $reviewController = new ReviewController();
+        $reviewController->delete($reviewId);
+    }, 'delete');
+
+    // Like a review
+    Route::add('/reviews/([0-9]*)/like/([0-9]*)', function ($reviewId, $userId) {
+        $reviewController = new ReviewController();
+        $reviewController->like($reviewId, $userId);
+    });
+
+    // Dislike a review
+    Route::add('/reviews/([0-9]*)/dislike/([0-9]*)', function ($reviewId, $userId) {
+        $reviewController = new ReviewController();
+        $reviewController->dislike($reviewId, $userId);
+    });
+
+
+
+
+    // ##################################### 404 Route Handler ##################################### \\
     Route::pathNotFound(function () {
         ResponseService::Error("route is not defined", 404);
     });
