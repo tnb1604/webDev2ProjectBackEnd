@@ -8,6 +8,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../controllers/GameController.php';
 require_once __DIR__ . '/../controllers/ReviewController.php';
+require_once __DIR__ . '/../controllers/UserController.php';
 
 // require local classes
 use App\Services\EnvService;
@@ -137,6 +138,34 @@ try {
         $reviewController->getVotes($reviewId);
     });
 
+
+
+
+
+    // ##################################### User Routes ##################################### \\
+    // Get all users
+    Route::add('/users', function () {
+        $userController = new UserController();
+        $userController->getAll();
+    }, 'GET');
+
+    // Get user by ID
+    Route::add('/users/([0-9]*)', function ($id) {
+        $userController = new UserController();
+        $userController->get($id);
+    }, 'GET');
+
+    // Register a new user
+    Route::add('/auth/register', function () {
+        $userController = new UserController();
+        $userController->register();
+    }, 'POST');
+
+    // Login a user
+    Route::add('/auth/login', function () {
+        $userController = new UserController();
+        $userController->login();
+    }, 'POST');
 
 
 
