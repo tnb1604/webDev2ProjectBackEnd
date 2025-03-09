@@ -46,31 +46,24 @@ try {
     // Create a new game
     Route::add('/games', function () {
         $gameController = new GameController();
-        $gameController->create($_POST);
+        // Handle file upload
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
+            $gameController->create();
+        } else {
+            ResponseService::Error("Image file is required", 400);
+        }
     }, ["post"]);
 
+    // Update a game by ID (use POST for updating)
     Route::add('/games/([0-9]*)', function ($id) {
         $gameController = new GameController();
-
-        // get json data from request body
-        $data = json_decode(file_get_contents("php://input"), true);
-
-        // validate data
-        if (!$data) {
-            ResponseService::Error("Invalid JSON data", 400);
-            return;
+        // Handle file upload
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
+            $gameController->update($id);
+        } else {
+            ResponseService::Error("Image file is required", 400);
         }
-
-        $gameController->update(
-            $id,
-            $data['title'] ?? null,
-            $data['description'] ?? null,
-            $data['genre'] ?? null,
-            $data['release_date'] ?? null,
-            $data['image_path'] ?? null
-        );
-    }, ['put']);
-
+    }, ['post']);
 
 
     // Delete a game by ID
@@ -78,7 +71,6 @@ try {
         $gameController = new GameController();
         $gameController->delete($id);
     }, 'delete');
-
 
     // 404 route handler
     Route::pathNotFound(function () {
@@ -92,6 +84,5 @@ try {
     }
     ResponseService::Error("A server error occurred");
 }
-
 
 Route::run();

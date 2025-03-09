@@ -30,17 +30,35 @@ class GameController
 
     public function create()
     {
-        $data = json_decode(file_get_contents("php://input"), true);
-        if (!$data) {
-            ResponseService::Error("Invalid JSON", 400);
+        // Check if it's a JSON request
+        $contentType = $_SERVER["CONTENT_TYPE"] ?? '';
+
+        if (stripos($contentType, 'application/json') !== false) {
+            $data = json_decode(file_get_contents("php://input"), true);
+            if (!$data) {
+                ResponseService::Error("Invalid JSON", 400);
+            }
+        } else {
+            // Handle multipart/form-data
+            $data = $_POST;
         }
 
+        // Handle image upload
+        $imagePath = null;
+        if (isset($_FILES['image'])) {
+            $imagePath = $this->uploadImage($_FILES['image']);
+            if (!$imagePath) {
+                ResponseService::Error("Image upload failed", 500);
+            }
+        }
+
+        // Create the game
         $gameId = $this->gameModel->createGame(
-            $data['title'],
-            $data['description'],
-            $data['genre'],
-            $data['release_date'],
-            $data['image_path']
+            $data['title'] ?? null,
+            $data['description'] ?? null,
+            $data['genre'] ?? null,
+            $data['release_date'] ?? null,
+            $imagePath
         );
 
         ResponseService::Send([
@@ -49,21 +67,81 @@ class GameController
         ]);
     }
 
-    public function update($gameId, $title, $description, $genre, $releaseDate, $imagePath)
+    public function update($gameId)
     {
-        if ($this->gameModel->updateGame($gameId, $title, $description, $genre, $releaseDate, $imagePath)) {
+        // Detect content type
+        $contentType = $_SERVER["CONTENT_TYPE"] ?? '';
+
+        // Parse the data depending on the content type (JSON or form data)
+        if (stripos($contentType, 'application/json') !== false) {
+            $data = json_decode(file_get_contents("php://input"), true);
+            if (!$data) {
+                ResponseService::Error("Invalid JSON", 400);
+            }
+        } else {
+            // Handle multipart form data
+            $data = $_POST;
+        }
+
+        // Handle image upload if an image is provided
+        $imagePath = null;
+        if (isset($_FILES['image'])) {
+            // Get the current game data to check if we need to delete the old image
+            $currentGame = $this->gameModel->getGame($gameId);
+            if ($currentGame && $currentGame['image_path']) {
+                $this->deleteImage($currentGame['image_path']); // Delete the old image if it exists
+            }
+
+            // Upload the new image
+            $imagePath = $this->uploadImage($_FILES['image']);
+            if (!$imagePath) {
+                ResponseService::Error("Image upload failed", 500);
+            }
+        }
+
+        // Perform the game update
+        if (
+            $this->gameModel->updateGame(
+                $gameId,
+                $data['title'] ?? null,
+                $data['description'] ?? null,
+                $data['genre'] ?? null,
+                $data['release_date'] ?? null,
+                $imagePath
+            )
+        ) {
             ResponseService::Send(["message" => "Game updated successfully"]);
         } else {
             ResponseService::Error("Game not found", 404);
         }
     }
 
+
     public function delete($gameId)
     {
+        // Get the current game data
+        $currentGame = $this->gameModel->getGame($gameId);
+        if ($currentGame && $currentGame['image_path']) {
+            $this->deleteImage($currentGame['image_path']);
+        }
+
         if ($this->gameModel->deleteGame($gameId)) {
             ResponseService::Send(["message" => "Game deleted successfully"]);
         } else {
             ResponseService::Error("Game not found", 404);
+        }
+    }
+
+    private function uploadImage($file)
+    {
+        return $this->gameModel->uploadImage($file);
+    }
+
+    private function deleteImage($imagePath)
+    {
+        $fullImagePath = __DIR__ . "/../public" . $imagePath;
+        if (file_exists($fullImagePath)) {
+            unlink($fullImagePath);
         }
     }
 }

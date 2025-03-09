@@ -6,7 +6,7 @@ require_once(__DIR__ . "/Model.php");
 
 class GameModel extends Model
 {
-    private $itemsPerPage = 20;
+    private $itemsPerPage = 15;
 
     public function __construct()
     {
@@ -36,7 +36,7 @@ class GameModel extends Model
         $stmt->execute([$gameId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
+ 
     public function createGame($title, $description, $genre, $releaseDate, $imagePath)
     {
         $stmt = self::$pdo->prepare("INSERT INTO games (title, description, genre, release_date, image_path) VALUES (?, ?, ?, ?, ?)");
@@ -45,15 +45,34 @@ class GameModel extends Model
         return self::$pdo->lastInsertId();
     }
 
-
     public function updateGame($gameId, $title, $description, $genre, $releaseDate, $imagePath)
     {
-        $stmt = self::$pdo->prepare("UPDATE games SET title = ?, description = ?, genre = ?, release_date = ?, image_path = ? WHERE id = ?");
+        // Check if the game exists first
+        $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM games WHERE id = ?");
+        $stmt->execute([$gameId]);
+        if ($stmt->fetchColumn() == 0) {
+            return false; // Game does not exist
+        }
+
+        // Proceed with update
+        $stmt = self::$pdo->prepare("
+        UPDATE games 
+        SET title = ?, description = ?, genre = ?, release_date = ?, image_path = ? 
+        WHERE id = ?
+    ");
         return $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath, $gameId]);
     }
 
     public function deleteGame($gameId)
     {
+        // Check if the game exists
+        $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM games WHERE id = ?");
+        $stmt->execute([$gameId]);
+        if ($stmt->fetchColumn() == 0) {
+            return false; // Game does not exist
+        }
+
+        // Proceed with delete
         $stmt = self::$pdo->prepare("DELETE FROM games WHERE id = ?");
         return $stmt->execute([$gameId]);
     }
