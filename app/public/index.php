@@ -167,6 +167,21 @@ try {
         $userController->login();
     }, 'POST');
 
+    Route::add('/auth/me', function () {
+        $userController = new UserController();
+        $userController->me();
+    }, ["get"]);
+
+    // update article by id
+    Route::add('/auth/is-me/([0-9]*)', function ($id) {
+        $userController = new UserController();
+        $userController->isMe($id);
+    }, 'get');
+
+
+
+    
+
 
 
     // ##################################### 404 Route Handler ##################################### \\

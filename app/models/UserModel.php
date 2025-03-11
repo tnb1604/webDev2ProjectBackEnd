@@ -24,19 +24,6 @@ class UserModel extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function register($username, $email, $password)
-    {
-        // Check if username or email already exists
-        $stmt = self::$pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
-        $stmt->execute([$username, $email]);
-        if ($stmt->fetch()) {
-            return "exists"; // Username or email already taken
-        }
-
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = self::$pdo->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-        return $stmt->execute([$username, $email, $hashedPassword]);
-    }
 
 
     public function login($email, $password)
@@ -49,5 +36,53 @@ class UserModel extends Model
             return $user; // Password matches
         }
         return false; // Invalid login
+    }
+
+    public function create($username, $email, $password)
+    {
+        // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException('Invalid email format');
+        }
+
+        // Additional validation for email length and domain
+        if (strlen($email) > 254) {
+            throw new \InvalidArgumentException('Email is too long');
+        }
+
+        // Extract domain and validate
+        $domain = substr(strrchr($email, "@"), 1);
+        if (!checkdnsrr($domain, 'MX')) {
+            throw new \InvalidArgumentException('Invalid email domain');
+        }
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = self::$pdo->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
+        $stmt->execute([$username, $email, $hashedPassword]);
+
+        $userId = self::$pdo->lastInsertId();
+        return $this->findById($userId);
+    }
+
+    public function findByEmail($email)
+    {
+        $stmt = self::$pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function findByUsername($username)
+    {
+        $stmt = self::$pdo->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+
+    public function findById($id)
+    {
+        $stmt = self::$pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }

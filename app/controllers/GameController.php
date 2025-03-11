@@ -1,9 +1,10 @@
 <?php
 
-require_once(__DIR__ . "/../models/GameModel.php");
 use App\Services\ResponseService;
+use App\Controllers\Controller;
+require_once __DIR__ . '/../models/GameModel.php';
 
-class GameController
+class GameController extends Controller
 {
     private $gameModel;
 

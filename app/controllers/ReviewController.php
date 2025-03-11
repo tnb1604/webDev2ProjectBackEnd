@@ -1,9 +1,11 @@
 <?php
 
-require_once(__DIR__ . "/../models/ReviewModel.php");
 use App\Services\ResponseService;
+use App\Controllers\Controller;
+require_once __DIR__ . '/../models/ReviewModel.php';
 
-class ReviewController
+
+class ReviewController extends Controller
 {
     private $reviewModel;
 
