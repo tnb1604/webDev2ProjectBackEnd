@@ -58,7 +58,7 @@ class UserController extends Controller
         $data = $this->decodePostData();
 
 
-        
+
         // Validate that required fields (email & password) exist in request
         $this->validateInput(['email', 'password'], $data);
 
@@ -67,8 +67,8 @@ class UserController extends Controller
 
         // Check if user exists and password matches
         // password_verify securely compares the provided password against the stored hash
-        if (!$user ||  !password_verify($data['password'], $user['password_hash'])) {
-            ResponseService::Error('Invalid credentials', 401);
+        if (!$user || !password_verify($data['password'], $user['password_hash'])) {
+            ResponseService::Error('Invalid credentials123', 401);
             return;
         }
 
@@ -96,7 +96,7 @@ class UserController extends Controller
                 'id' => $user['id'],
                 //'username' => $user['username'],
                 //'email' => $user['email'],
-                //'role' => $user['role']
+                'role' => $user['role']
             ]
         ];
 
