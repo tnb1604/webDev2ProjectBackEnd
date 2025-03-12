@@ -37,10 +37,10 @@ class GameModel extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
  
-    public function createGame($title, $description, $genre, $releaseDate, $imagePath)
+    public function createGame($title, $description, $genre, $releaseDate, $imagePath, $trailerUrl)
     {
-        $stmt = self::$pdo->prepare("INSERT INTO games (title, description, genre, release_date, image_path) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath]);
+        $stmt = self::$pdo->prepare("INSERT INTO games (title, description, genre, release_date, image_path, trailer_url) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath, $trailerUrl]);
 
         return self::$pdo->lastInsertId();
     }

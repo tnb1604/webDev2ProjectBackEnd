@@ -59,7 +59,8 @@ class GameController extends Controller
             $data['description'] ?? null,
             $data['genre'] ?? null,
             $data['release_date'] ?? null,
-            $imagePath
+            $imagePath,
+            $data['trailer_url'] ?? null
         );
 
         ResponseService::Send([
