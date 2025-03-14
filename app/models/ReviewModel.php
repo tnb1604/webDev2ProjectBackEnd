@@ -28,18 +28,18 @@ class ReviewModel extends Model
     }
 
     // Create a new review
-    public function createReview($gameId, $userId, $rating, $reviewText)
+    public function createReview($gameId, $userId, $title, $rating, $reviewText)
     {
-        $stmt = self::$pdo->prepare("INSERT INTO reviews (game_id, user_id, rating, review_text) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$gameId, $userId, $rating, $reviewText]);
+        $stmt = self::$pdo->prepare("INSERT INTO reviews (game_id, user_id, title, rating, review_text) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$gameId, $userId, $title, $rating, $reviewText]);
         return $this->getReviewById(self::$pdo->lastInsertId()); // Return the newly created review
     }
 
     // Update an existing review
-    public function updateReview($reviewId, $rating, $reviewText)
+    public function updateReview($reviewId, $title, $rating, $reviewText)
     {
-        $stmt = self::$pdo->prepare("UPDATE reviews SET rating = ?, review_text = ? WHERE id = ?");
-        $stmt->execute([$rating, $reviewText, $reviewId]);
+        $stmt = self::$pdo->prepare("UPDATE reviews SET title = ?, rating = ?, review_text = ? WHERE id = ?");
+        $stmt->execute([$title, $rating, $reviewText, $reviewId]);
         return $this->getReviewById($reviewId); // Return the updated review
     }
 

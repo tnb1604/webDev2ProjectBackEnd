@@ -92,11 +92,11 @@ try {
 
     // Create a new review
     Route::add('/reviews', function () {
-        // Example: Expecting JSON body with gameId, userId, rating, comment
+        // Example: Expecting JSON body with gameId, userId, title, rating, review_text
         $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($data['gameId'], $data['userId'], $data['rating'], $data['comment'])) {
+        if (isset($data['gameId'], $data['userId'], $data['title'], $data['rating'], $data['review_text'])) {
             $reviewController = new ReviewController();
-            $reviewController->create($data['gameId'], $data['userId'], $data['rating'], $data['comment']);
+            $reviewController->create($data['gameId'], $data['userId'], $data['title'], $data['rating'], $data['review_text']);
         } else {
             ResponseService::Error("Missing required fields", 400);
         }
@@ -104,11 +104,11 @@ try {
 
     // Update an existing review
     Route::add('/reviews/([0-9]*)', function ($reviewId) {
-        // Example: Expecting JSON body with rating and comment
+        // Example: Expecting JSON body with title, rating, and review_text
         $data = json_decode(file_get_contents("php://input"), true);
-        if (isset($data['rating'], $data['comment'])) {
+        if (isset($data['title'], $data['rating'], $data['review_text'])) {
             $reviewController = new ReviewController();
-            $reviewController->update($reviewId, $data['rating'], $data['comment']);
+            $reviewController->update($reviewId, $data['title'], $data['rating'], $data['review_text']);
         } else {
             ResponseService::Error("Missing required fields", 400);
         }

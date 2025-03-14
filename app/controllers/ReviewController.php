@@ -42,9 +42,9 @@ class ReviewController extends Controller
     }
 
     // Create a new review
-    public function create($gameId, $userId, $rating, $comment)
+    public function create($gameId, $userId, $title, $rating, $reviewText)
     {
-        $newReview = $this->reviewModel->createReview($gameId, $userId, $rating, $comment);
+        $newReview = $this->reviewModel->createReview($gameId, $userId, $title, $rating, $reviewText);
         if ($newReview) {
             ResponseService::Send(["message" => "Review created successfully", "review" => $newReview]);
         } else {
@@ -53,9 +53,9 @@ class ReviewController extends Controller
     }
 
     // Update an existing review
-    public function update($reviewId, $rating, $comment)
+    public function update($reviewId, $title, $rating, $reviewText)
     {
-        $updatedReview = $this->reviewModel->updateReview($reviewId, $rating, $comment);
+        $updatedReview = $this->reviewModel->updateReview($reviewId, $title, $rating, $reviewText);
         if ($updatedReview) {
             ResponseService::Send(["message" => "Review updated successfully", "review" => $updatedReview]);
         } else {
