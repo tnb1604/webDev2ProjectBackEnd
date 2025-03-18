@@ -18,7 +18,7 @@ class GameModel extends Model
         $offset = ($page - 1) * $this->itemsPerPage;
 
         $stmt = self::$pdo->prepare("
-            SELECT id, title, description, genre, release_date, image_path 
+            SELECT id, title, description, genre, release_date, image_path, trailer_url
             FROM games 
             ORDER BY release_date DESC 
             LIMIT :limit OFFSET :offset
@@ -32,11 +32,11 @@ class GameModel extends Model
 
     public function getGame($gameId)
     {
-        $stmt = self::$pdo->prepare("SELECT id, title, description, genre, release_date, image_path FROM games WHERE id = ?");
+        $stmt = self::$pdo->prepare("SELECT id, title, description, genre, release_date, image_path, trailer_url FROM games WHERE id = ?");
         $stmt->execute([$gameId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
- 
+
     public function createGame($title, $description, $genre, $releaseDate, $imagePath, $trailerUrl)
     {
         $stmt = self::$pdo->prepare("INSERT INTO games (title, description, genre, release_date, image_path, trailer_url) VALUES (?, ?, ?, ?, ?, ?)");
