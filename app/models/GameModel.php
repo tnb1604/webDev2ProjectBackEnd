@@ -6,7 +6,7 @@ require_once(__DIR__ . "/Model.php");
 
 class GameModel extends Model
 {
-    private $itemsPerPage = 5;
+    private $itemsPerPage = 10;
 
     public function __construct()
     {
