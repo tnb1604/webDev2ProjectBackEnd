@@ -16,8 +16,12 @@ class GameController extends Controller
     public function getAll()
     {
         $page = (int) ($_GET["page"] ?? 1);
-        ResponseService::Send($this->gameModel->getAllGames($page));
+        $search = $_GET["search"] ?? ''; // Get the search query from the GET parameters
+
+        // Pass both page and search query to the getAllGames method
+        ResponseService::Send($this->gameModel->getAllGames($page, $search));
     }
+
 
     public function get($gameId)
     {

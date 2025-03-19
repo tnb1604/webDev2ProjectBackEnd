@@ -13,22 +13,29 @@ class GameModel extends Model
         parent::__construct();
     }
 
-    public function getAllGames($page)
+    public function getAllGames($page, $search = '')
     {
         $offset = ($page - 1) * $this->itemsPerPage;
 
-        $stmt = self::$pdo->prepare("
-            SELECT id, title, description, genre, release_date, image_path, trailer_url
-            FROM games 
-            ORDER BY release_date DESC 
-            LIMIT :limit OFFSET :offset
-        ");
+        // Modify the SQL query to filter by title if a search term is provided
+        $sql = "
+        SELECT id, title, description, genre, release_date, image_path, trailer_url
+        FROM games 
+        WHERE title LIKE :search
+        ORDER BY release_date DESC 
+        LIMIT :limit OFFSET :offset
+    ";
+
+        $stmt = self::$pdo->prepare($sql);
+        // Bind the search term, ensuring it's a wildcard search
+        $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         $stmt->bindValue(':limit', $this->itemsPerPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getGame($gameId)
     {
