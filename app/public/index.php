@@ -60,12 +60,7 @@ try {
     // Update a game by ID (use POST for updating)
     Route::add('/games/([0-9]*)', function ($id) {
         $gameController = new GameController();
-        // Handle file upload
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
-            $gameController->update($id);
-        } else {
-            ResponseService::Error("Image file is required", 400);
-        }
+        $gameController->update($id);
     }, ['post']);
 
     // Delete a game by ID
@@ -180,7 +175,7 @@ try {
 
 
 
-    
+
 
 
 

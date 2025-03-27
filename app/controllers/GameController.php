@@ -91,7 +91,7 @@ class GameController extends Controller
 
         // Handle image upload if an image is provided
         $imagePath = null;
-        if (isset($_FILES['image'])) {
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             // Get the current game data to check if we need to delete the old image
             $currentGame = $this->gameModel->getGame($gameId);
             if ($currentGame && $currentGame['image_path']) {
@@ -103,6 +103,10 @@ class GameController extends Controller
             if (!$imagePath) {
                 ResponseService::Error("Image upload failed", 500);
             }
+        } elseif (!isset($_FILES['image'])) {
+            // Keep the current image path if no new image is uploaded or if it's undefined
+            $currentGame = $this->gameModel->getGame($gameId);
+            $imagePath = $currentGame['image_path'] ?? null;
         }
 
         // Perform the game update
