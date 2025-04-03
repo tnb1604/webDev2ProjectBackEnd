@@ -17,17 +17,19 @@ class GameModel extends Model
     {
         $offset = ($page - 1) * $this->itemsPerPage;
 
-        // Modify the SQL query to filter by title if a search term is provided
         $sql = "
-        SELECT id, title, description, genre, release_date, image_path, trailer_url
-        FROM games 
-        WHERE title LIKE :search
-        ORDER BY release_date DESC 
-        LIMIT :limit OFFSET :offset
+    SELECT g.id, g.title, g.description, g.genre, g.release_date, g.image_path, g.trailer_url,
+           COALESCE(AVG(r.rating), 0) AS average_rating,
+           COUNT(r.id) AS review_count
+    FROM games g
+    LEFT JOIN reviews r ON g.id = r.game_id
+    WHERE g.title LIKE :search
+    GROUP BY g.id
+    ORDER BY review_count DESC, g.release_date DESC 
+    LIMIT :limit OFFSET :offset
     ";
 
         $stmt = self::$pdo->prepare($sql);
-        // Bind the search term, ensuring it's a wildcard search
         $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         $stmt->bindValue(':limit', $this->itemsPerPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -35,6 +37,8 @@ class GameModel extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
 
 
     public function getGame($gameId)

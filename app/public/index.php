@@ -167,11 +167,11 @@ try {
         $userController->me();
     }, ["get"]);
 
-    // update article by id
+    /* update article by id
     Route::add('/auth/is-me/([0-9]*)', function ($id) {
         $userController = new UserController();
         $userController->isMe($id);
-    }, 'get');
+    }, 'get'); */
 
 
 
