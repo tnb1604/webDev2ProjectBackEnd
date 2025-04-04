@@ -108,4 +108,10 @@ class UserController extends Controller
         $this->validateIsMe($id);
         ResponseService::Send(['message' => 'You are authorized to access this resource']);
     }
+
+    public function delete($id)
+    {
+        $this->userModel->delete($id);
+        ResponseService::Send(['message' => 'User deleted successfully']);
+    }
 }

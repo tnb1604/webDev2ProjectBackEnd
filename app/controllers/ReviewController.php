@@ -18,13 +18,9 @@ class ReviewController extends Controller
     public function getByGame($gameId)
     {
         $reviews = $this->reviewModel->getReviewsByGame($gameId);
-        if (empty($reviews)) {
-            ResponseService::Error("No reviews found for this game", 404); // Return an error if no reviews found
-        } else {
-            ResponseService::Send($reviews); // Send the reviews if found
-        }
+        // Return an empty array if no reviews are found
+        ResponseService::Send($reviews);
     }
-
 
     // Get a review by its ID
     public function get($reviewId)

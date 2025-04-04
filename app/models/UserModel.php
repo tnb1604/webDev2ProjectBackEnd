@@ -13,7 +13,7 @@ class UserModel extends Model
 
     public function getAll()
     {
-        $stmt = self::$pdo->query("SELECT id, username, email, role FROM users");
+        $stmt = self::$pdo->query("SELECT id, username, email, role FROM users ORDER BY role DESC, id ASC;");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -84,5 +84,11 @@ class UserModel extends Model
         $stmt = self::$pdo->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function delete($id)
+    {
+        $stmt = self::$pdo->prepare("DELETE FROM users WHERE id = ?");
+        return $stmt->execute([$id]);
     }
 }
