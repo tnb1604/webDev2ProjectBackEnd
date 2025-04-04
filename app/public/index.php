@@ -115,6 +115,16 @@ try {
         $reviewController->delete($reviewId);
     }, 'delete');
 
+    
+
+
+    
+
+
+
+    ###################################### Review Vote Routes ##################################### \\
+
+
     // Like a review
     Route::add('/reviews/([0-9]*)/like/([0-9]*)', function ($reviewId, $userId) {
         $reviewController = new ReviewController();
@@ -133,7 +143,12 @@ try {
         $reviewController->getVotes($reviewId);
     });
 
-
+    Route::add('/reviews/([0-9]*)/vote/([0-9]*)', function ($reviewId, $userId) {
+        $reviewController = new ReviewController();
+        $reviewController->getUserVote($reviewId, $userId);
+    });
+    
+    
 
 
 

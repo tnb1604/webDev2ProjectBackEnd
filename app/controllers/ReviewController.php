@@ -81,6 +81,13 @@ class ReviewController extends Controller
         }
     }
 
+    public function getUserVote($reviewId, $userId)
+    {
+        $vote = $this->reviewModel->getVoteByUser($reviewId, $userId);
+        ResponseService::Send(["voteType" => $vote ? $vote['type'] : null]);
+    }
+
+
     public function like($reviewId, $userId)
     {
         // Check if the user has already voted (like or dislike)
