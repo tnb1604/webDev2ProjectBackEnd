@@ -54,7 +54,7 @@ class GameModel extends Model
         return self::$pdo->lastInsertId();
     }
 
-    public function updateGame($gameId, $title, $description, $genre, $releaseDate, $imagePath)
+    public function updateGame($gameId, $title, $description, $genre, $releaseDate, $imagePath, $trailerUrl)
     {
         // Check if the game exists first
         $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM games WHERE id = ?");
@@ -66,11 +66,12 @@ class GameModel extends Model
         // Proceed with update
         $stmt = self::$pdo->prepare("
         UPDATE games 
-        SET title = ?, description = ?, genre = ?, release_date = ?, image_path = ? 
+        SET title = ?, description = ?, genre = ?, release_date = ?, image_path = ?, trailer_url = ? 
         WHERE id = ?
     ");
-        return $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath, $gameId]);
+        return $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath, $trailerUrl, $gameId]);
     }
+
 
     public function deleteGame($gameId)
     {
