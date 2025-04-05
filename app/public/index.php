@@ -40,6 +40,14 @@ try {
         $gameController->getAll();
     });
 
+    // Add this route to your routing file
+    Route::add('/get_max_upload_size', function () {
+        // Delegate to ResponseService to get the max upload size
+        ResponseService::GetMaxUploadSize();
+    });
+
+
+
     // Get a game by ID
     Route::add('/games/([0-9]*)', function ($id) {
         $gameController = new GameController();
@@ -115,10 +123,10 @@ try {
         $reviewController->delete($reviewId);
     }, 'delete');
 
-    
 
 
-    
+
+
 
 
 
@@ -147,8 +155,8 @@ try {
         $reviewController = new ReviewController();
         $reviewController->getUserVote($reviewId, $userId);
     });
-    
-    
+
+
 
 
 
