@@ -57,6 +57,11 @@ class GameController extends Controller
             }
         }
 
+        // Ensure imagePath is not null
+        if (!$imagePath) {
+            ResponseService::Error("Image uploaded unsuccessfully, please try a different one. If this issue persists while you are pasting images from your clipboard, try using images from your files.", 400);
+        }
+
         // Validate field lengths
         $this->validateFields(
             [
@@ -123,6 +128,11 @@ class GameController extends Controller
             // Keep the current image path if no new image is uploaded or if it's undefined
             $currentGame = $this->gameModel->getGame($gameId);
             $imagePath = $currentGame['image_path'] ?? null;
+        }
+
+        // Ensure imagePath is not null
+        if (!$imagePath) {
+            ResponseService::Error("Image uploaded unsuccessfully, please try a different image. If this issue persists while you are pasting images from your clipboard, try using images from your files.", 400);
         }
 
         // Validate field lengths

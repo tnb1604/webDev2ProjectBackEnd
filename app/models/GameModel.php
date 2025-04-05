@@ -36,9 +36,6 @@ class GameModel extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
     public function getGame($gameId)
     {
         $stmt = self::$pdo->prepare("SELECT id, title, description, genre, release_date, image_path, trailer_url FROM games WHERE id = ?");
@@ -48,6 +45,10 @@ class GameModel extends Model
 
     public function createGame($title, $description, $genre, $releaseDate, $imagePath, $trailerUrl)
     {
+        if (!$imagePath) {
+            throw new InvalidArgumentException("Image path cannot be null");
+        }
+
         $stmt = self::$pdo->prepare("INSERT INTO games (title, description, genre, release_date, image_path, trailer_url) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath, $trailerUrl]);
 
@@ -56,6 +57,10 @@ class GameModel extends Model
 
     public function updateGame($gameId, $title, $description, $genre, $releaseDate, $imagePath, $trailerUrl)
     {
+        if (!$imagePath) {
+            throw new InvalidArgumentException("Image path cannot be null");
+        }
+
         // Check if the game exists first
         $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM games WHERE id = ?");
         $stmt->execute([$gameId]);
@@ -71,7 +76,6 @@ class GameModel extends Model
     ");
         return $stmt->execute([$title, $description, $genre, $releaseDate, $imagePath, $trailerUrl, $gameId]);
     }
-
 
     public function deleteGame($gameId)
     {
