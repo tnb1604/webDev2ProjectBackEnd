@@ -33,6 +33,16 @@ class Controller
         }
     }
 
+    protected function validateFields($fields, $maxLengths)
+    {
+        foreach ($fields as $field => $value) {
+            if (isset($maxLengths[$field]) && strlen($value) > $maxLengths[$field]) {
+                ResponseService::Error("The field '$field' exceeds the maximum length of {$maxLengths[$field]} characters.", 400);
+                exit;
+            }
+        }
+    }
+
     public function getAuthenticatedUser()
     {
         // Get all HTTP headers from the request

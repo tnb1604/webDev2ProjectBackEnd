@@ -57,6 +57,22 @@ class GameController extends Controller
             }
         }
 
+        // Validate field lengths
+        $this->validateFields(
+            [
+                'title' => $data['title'] ?? '',
+                'description' => $data['description'] ?? '',
+                'genre' => $data['genre'] ?? '',
+                'trailer_url' => $data['trailer_url'] ?? ''
+            ],
+            [
+                'title' => 100,
+                'description' => 600,
+                'genre' => 50,
+                'trailer_url' => 255
+            ]
+        );
+
         // Create the game
         $gameId = $this->gameModel->createGame(
             $data['title'] ?? null,
@@ -108,6 +124,22 @@ class GameController extends Controller
             $currentGame = $this->gameModel->getGame($gameId);
             $imagePath = $currentGame['image_path'] ?? null;
         }
+
+        // Validate field lengths
+        $this->validateFields(
+            [
+                'title' => $data['title'] ?? '',
+                'description' => $data['description'] ?? '',
+                'genre' => $data['genre'] ?? '',
+                'trailer_url' => $data['trailer_url'] ?? ''
+            ],
+            [
+                'title' => 100,
+                'description' => 600,
+                'genre' => 50,
+                'trailer_url' => 255
+            ]
+        );
 
         // Perform the game update
         if (

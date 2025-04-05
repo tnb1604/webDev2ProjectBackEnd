@@ -40,6 +40,12 @@ class ReviewController extends Controller
     // Create a new review
     public function create($gameId, $userId, $title, $rating, $reviewText)
     {
+        // Validate field lengths
+        $this->validateFields(
+            ['title' => $title, 'reviewText' => $reviewText],
+            ['title' => 50, 'reviewText' => 1000]
+        );
+
         $newReview = $this->reviewModel->createReview($gameId, $userId, $title, $rating, $reviewText);
         if ($newReview) {
             ResponseService::Send(["message" => "Review created successfully", "review" => $newReview]);
@@ -51,6 +57,12 @@ class ReviewController extends Controller
     // Update an existing review
     public function update($reviewId, $title, $rating, $reviewText)
     {
+        // Validate field lengths
+        $this->validateFields(
+            ['title' => $title, 'reviewText' => $reviewText],
+            ['title' => 50, 'reviewText' => 1000]
+        );
+
         $updatedReview = $this->reviewModel->updateReview($reviewId, $title, $rating, $reviewText);
         if ($updatedReview) {
             ResponseService::Send(["message" => "Review updated successfully", "review" => $updatedReview]);
