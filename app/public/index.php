@@ -61,14 +61,14 @@ try {
     Route::add('/games/([0-9]*)', function ($id) {
         $gameController = new GameController();
         $gameController->update($id);
-    }, ['post']);
+    }, ['post']); // I used post here to allow file uploads because i couldn't get it to work with put
+
 
     // Delete a game by ID
     Route::add('/games/([0-9]*)', function ($id) {
         $gameController = new GameController();
         $gameController->delete($id);
     }, 'delete');
-
 
 
 
