@@ -30,6 +30,13 @@ class UserController extends Controller
         $data = $this->decodePostData(); // Use base controller method to get POST data
         $this->validateInput(['username', 'email', 'password'], $data); // Use base controller validation
 
+        // Validate field lengths
+        $this->validateFields($data, [
+            'username' => 50,
+            'email' => 100,
+            'password' => 64
+        ]);
+
         // Check if email already exists
         if ($this->userModel->findByEmail($data['email'])) {
             ResponseService::Error('Email already exists', 400);
@@ -57,10 +64,14 @@ class UserController extends Controller
         // Get and parse the JSON request body using base controller method
         $data = $this->decodePostData();
 
-
-
         // Validate that required fields (email & password) exist in request
         $this->validateInput(['email', 'password'], $data);
+
+        // Validate field lengths
+        $this->validateFields($data, [
+            'email' => 100,
+            'password' => 64
+        ]);
 
         // Try to find user with the provided email
         $user = $this->userModel->findByEmail($data['email']);
@@ -68,7 +79,7 @@ class UserController extends Controller
         // Check if user exists and password matches
         // password_verify securely compares the provided password against the stored hash
         if (!$user || !password_verify($data['password'], $user['password_hash'])) {
-            ResponseService::Error('Invalid credentials123', 401);
+            ResponseService::Error('Invalid credentials. Please check your email or password.', 401);
             return;
         }
 
