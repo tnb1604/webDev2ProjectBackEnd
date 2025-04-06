@@ -28,6 +28,10 @@ class UserController extends Controller
     public function register()
     {
         $data = $this->decodePostData(); // Use base controller method to get POST data
+        if (empty($data['username']) || empty($data['email']) || empty($data['password'])) {
+            ResponseService::Error("Missing required fields: username, email, or password", 400);
+            return;
+        }
         $this->validateInput(['username', 'email', 'password'], $data); // Use base controller validation
 
         // Validate field lengths
@@ -63,7 +67,10 @@ class UserController extends Controller
     {
         // Get and parse the JSON request body using base controller method
         $data = $this->decodePostData();
-
+        if (empty($data['email']) || empty($data['password'])) {
+            ResponseService::Error("Missing required fields: email or password", 400);
+            return;
+        }
         // Validate that required fields (email & password) exist in request
         $this->validateInput(['email', 'password'], $data);
 

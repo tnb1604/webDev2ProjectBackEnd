@@ -11,12 +11,18 @@ class ReviewModel extends Model
         parent::__construct();
     }
 
-    // Get all reviews for a specific game
+    // Get all reviews for a specific game, ordered by most likes
     public function getReviewsByGame($gameId)
     {
-        $stmt = self::$pdo->prepare("SELECT * FROM reviews WHERE game_id = ?");
+        $stmt = self::$pdo->prepare("
+            SELECT r.*, 
+                   (SELECT COUNT(*) FROM review_likes WHERE review_id = r.id AND type = 'like') as likes_count
+            FROM reviews r
+            WHERE r.game_id = ?
+            ORDER BY likes_count DESC
+        ");
         $stmt->execute([$gameId]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Return all reviews for the game
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Return reviews ordered by likes
     }
 
     // Get a review by its ID

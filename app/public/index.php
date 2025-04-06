@@ -50,6 +50,10 @@ try {
 
     // Get a game by ID
     Route::add('/games/([0-9]*)', function ($id) {
+        if (!is_numeric($id)) {
+            ResponseService::Error("Invalid game ID", 400);
+            return;
+        }
         $gameController = new GameController();
         $gameController->get($id);
     });
@@ -67,6 +71,10 @@ try {
 
     // Update a game by ID (use POST for updating)
     Route::add('/games/([0-9]*)', function ($id) {
+        if (!is_numeric($id)) {
+            ResponseService::Error("Invalid game ID", 400);
+            return;
+        }
         $gameController = new GameController();
         $gameController->update($id);
     }, ['post']); // I used post here to allow file uploads because i couldn't get it to work with put
@@ -74,6 +82,10 @@ try {
 
     // Delete a game by ID
     Route::add('/games/([0-9]*)', function ($id) {
+        if (!is_numeric($id)) {
+            ResponseService::Error("Invalid game ID", 400);
+            return;
+        }
         $gameController = new GameController();
         $gameController->delete($id);
     }, 'delete');
@@ -83,12 +95,20 @@ try {
     // ##################################### Review Routes ##################################### \\
     // Get all reviews for a game
     Route::add('/reviews/game/([0-9]*)', function ($gameId) {
+        if (!is_numeric($gameId)) {
+            ResponseService::Error("Invalid game ID", 400);
+            return;
+        }
         $reviewController = new ReviewController();
         $reviewController->getByGame($gameId);
     });
 
     // Get a review by its ID
     Route::add('/reviews/([0-9]*)', function ($reviewId) {
+        if (!is_numeric($reviewId)) {
+            ResponseService::Error("Invalid review ID", 400);
+            return;
+        }
         $reviewController = new ReviewController();
         $reviewController->get($reviewId);
     });

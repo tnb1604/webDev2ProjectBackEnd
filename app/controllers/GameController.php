@@ -62,6 +62,12 @@ class GameController extends Controller
             ResponseService::Error("Image uploaded unsuccessfully, please try a different one. If this issue persists while you are pasting images from your clipboard, try using images from your files.", 400);
         }
 
+        // Check for missing required fields
+        if (empty($data['title']) || empty($data['description']) || empty($data['genre']) || empty($data['release_date'])) {
+            ResponseService::Error("Missing required fields: title, description, genre, or release_date", 400);
+            return;
+        }
+
         // Validate field lengths
         $this->validateFields(
             [
@@ -133,6 +139,12 @@ class GameController extends Controller
         // Ensure imagePath is not null
         if (!$imagePath) {
             ResponseService::Error("Image uploaded unsuccessfully, please try a different image. If this issue persists while you are pasting images from your clipboard, try using images from your files.", 400);
+        }
+
+        // Check for missing required fields
+        if (empty($data['title']) || empty($data['description']) || empty($data['genre']) || empty($data['release_date'])) {
+            ResponseService::Error("Missing required fields: title, description, genre, or release_date", 400);
+            return;
         }
 
         // Validate field lengths

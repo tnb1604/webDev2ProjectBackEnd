@@ -1,0 +1,482 @@
+type: collection.insomnia.rest/5.0
+name: The Game Review Website
+meta:
+  id: wrk_0af6eab5bab9492dbfb1919237d02ea6
+  created: 1741470975350
+  modified: 1741470975350
+collection:
+  - name: Games
+    meta:
+      id: fld_816831a6930e4c7b8cd8e63a8e26d0b3
+      created: 1741472264065
+      modified: 1741472319037
+      sortKey: -1741472264265
+    children:
+      - url: http://localhost/games?page=2
+        name: Get All Games
+        meta:
+          id: req_dabe633e02f1405fa30490d21950d3cc
+          created: 1741177793536
+          modified: 1741491393785
+          isPrivate: false
+          sortKey: -1741486905279
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/games/29
+        name: Get Game By Id
+        meta:
+          id: req_a033c5850148469d954bd26ecb31db63
+          created: 1741370387350
+          modified: 1741751921376
+          isPrivate: false
+          sortKey: -1741486905229
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/games/30
+        name: Delete Game
+        meta:
+          id: req_c895a3ea16474c45861fd773c82fc70a
+          created: 1741472245511
+          modified: 1741752077202
+          isPrivate: false
+          sortKey: -1741472299829
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/games
+        name: Create Game (With Image Upload)
+        meta:
+          id: req_d9241ff73f4041b0b7814e38e958752b
+          created: 1741485649232
+          modified: 1741751792344
+          isPrivate: false
+          sortKey: -1741486905204
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_908a437b4f7e483e86eb284d7438f385
+              name: title
+              value: I am Cool
+              disabled: false
+            - id: pair_d2fdf7f511ff4843ae4b0c93cc762f25
+              name: description
+              value: I am Cool
+              disabled: false
+            - id: pair_4f6f9b42ecea4e5c97b3ca89850a9bdd
+              name: genre
+              value: I am Cool
+              disabled: false
+            - id: pair_e2f97624b9fb4b2f816fa9a4def389ca
+              name: release_date
+              value: 2002-12-31
+              disabled: false
+            - id: pair_315a560f7e844fd39ede5d8f8331a5ab
+              name: image
+              disabled: false
+              type: file
+              fileName: C:\Users\damis\Downloads\rizzySprite.webp
+            - id: pair_7245ecdf29fd432f97adcc6dc9919254
+              name: trailer_url
+              value: https://www.youtube.com/watch?v=PmD6ONQqi9Y
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/games/57
+        name: Update Game (With Image Upload)
+        meta:
+          id: req_8d2e105c01c040669c63cde557e9a232
+          created: 1741486905179
+          modified: 1743028263194
+          isPrivate: false
+          sortKey: -1741486905179
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_602a372365ab4e8c9198654345a9d465
+              name: title
+              value: yerman
+              disabled: false
+            - id: pair_9a794a7f03aa4257b395b30f0dd61b26
+              name: description
+              value: yer man
+              disabled: false
+            - id: pair_4e603685d10448558aa11054f494b168
+              name: genre
+              value: yer man
+              disabled: false
+            - id: pair_e210daa9843b4a6faf7ee82ab800e694
+              name: release_date
+              value: 2001-03-03
+              disabled: false
+            - id: pair_3a3d71a7c9f244c9975dea5f723772a6
+              name: image
+              disabled: false
+              type: file
+              fileName: C:\Users\damis\Downloads\sigmaBling.jpg
+            - id: pair_f228d6cacfa845e6aa82974932f8186e
+              name: trailer_url
+              value: wfww.youtube.com/watch?v=8X2kIfS6fb8
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Reviews
+    meta:
+      id: fld_d87668c0cb7d4d7db1a3ad9feb5d98e3
+      created: 1741472328281
+      modified: 1741472328281
+      sortKey: -1741472328281
+    children:
+      - url: http://localhost/reviews/game/19
+        name: Get Reviews By Game
+        meta:
+          id: req_c9c0522f0e9641c797a91e3384846de1
+          created: 1741472332729
+          modified: 1741496206110
+          isPrivate: false
+          sortKey: -1741491350916
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/reviews
+        name: Create Review
+        meta:
+          id: req_d109020745db497fa22f7f045abe9a13
+          created: 1741491304590
+          modified: 1741915249347
+          isPrivate: false
+          sortKey: -1741491350866
+        method: POST
+        body:
+          mimeType: application/json
+          text: >
+            {
+              "gameId": 19,
+              "userId": 27,
+              "rating": 5,
+            	"title": "lolool",
+              "review_text": "lol im a troll never played this but gonna hate for fun hahahahaha"
+            }
+        parameters:
+          - id: pair_73c3b9b4bc394897b52a45bc92dc3cfc
+            disabled: false
+          - id: pair_eb835619fea746f99bfe3395cee8f6d8
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/reviews/2
+        name: Get Review By Id
+        meta:
+          id: req_1a18e3b3715843b5ac091e7df3a05718
+          created: 1741491306528
+          modified: 1741747452457
+          isPrivate: false
+          sortKey: -1741491350891
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/reviews/2
+        name: Update Review
+        meta:
+          id: req_2a6d4b749feb4a189b45bc1a61607754
+          created: 1741491335299
+          modified: 1741495702972
+          isPrivate: false
+          sortKey: -1741491350791
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "rating": 5,
+              "comment": "Updated comme3333333333nt for this review."
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/reviews/29
+        name: Delete Review
+        meta:
+          id: req_473b6bd738a640ef86d774cf560fda9e
+          created: 1741491350716
+          modified: 1741751999967
+          isPrivate: false
+          sortKey: -1741491350716
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Review Likes
+    meta:
+      id: fld_2dbc84c9d746402cb863f42c7aba3f57
+      created: 1741492396750
+      modified: 1741492396750
+      sortKey: -1741492396750
+    children:
+      - url: http://localhost/reviews/220/like/21
+        name: Like Review
+        meta:
+          id: req_5f80eeccfceb4b7cb6441a2151ba1f59
+          created: 1741492046737
+          modified: 1743900486335
+          isPrivate: false
+          sortKey: -1741492399638
+        method: POST
+        body:
+          mimeType: application/json
+        parameters:
+          - id: pair_174fd72ff47f46d59087c26098ca7a66
+            disabled: false
+          - id: pair_e5d5b2868d4c4970ab5825d366385472
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/reviews/220/dislike/21
+        name: Dislike Review
+        meta:
+          id: req_661195d2aaa041fd8c1fd0c9be571c23
+          created: 1741492403992
+          modified: 1743900496110
+          isPrivate: false
+          sortKey: -1741492399588
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/reviews/220/votes
+        name: Get Likes/Dislikes For Review
+        meta:
+          id: req_d536aea4b36641edbd80e6ad4f64ec24
+          created: 1741496602966
+          modified: 1743900505479
+          isPrivate: false
+          sortKey: -1741496602966
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: User
+    meta:
+      id: fld_103428292b9d4736879772772814c73a
+      created: 1741560517831
+      modified: 1741560524412
+      sortKey: -1741560517831
+    children:
+      - url: http://localhost/auth/register
+        name: Register New User
+        meta:
+          id: req_544ee7cf324f492d8338cfafb0d1bed7
+          created: 1741560519982
+          modified: 1741713149841
+          isPrivate: false
+          sortKey: -1741560519982
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "username": "12345",
+              "email": "12345@gmail.com",
+              "password": "12345"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/auth/login
+        name: Login
+        meta:
+          id: req_383182245224415dab9e68be544b4bed
+          created: 1741561218330
+          modified: 1741712343715
+          isPrivate: false
+          sortKey: -1741560519882
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "email": "hi@gmail.com",
+              "password": "hi"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost/users/22
+        name: Get User
+        meta:
+          id: req_cd898e1397ac4d0294ebc04c95b9bfa3
+          created: 1741833858671
+          modified: 1741833896305
+          isPrivate: false
+          sortKey: -1741833858671
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_a54f1c82b0d845c18aee3cc9a012d041
+    created: 1741177751738
+    modified: 1741177751738
+environments:
+  name: Base Environment
+  meta:
+    id: env_290a5abae64a4ee4b76b29df7ab6f714
+    created: 1741177751734
+    modified: 1741177751734
+    isPrivate: false

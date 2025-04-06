@@ -40,6 +40,11 @@ class ReviewController extends Controller
     // Create a new review
     public function create($gameId, $userId, $title, $rating, $reviewText)
     {
+        if (empty($gameId) || empty($userId) || empty($title) || empty($rating) || empty($reviewText)) {
+            ResponseService::Error("Missing required fields: gameId, userId, title, rating, or reviewText", 400);
+            return;
+        }
+
         // Validate field lengths
         $this->validateFields(
             ['title' => $title, 'reviewText' => $reviewText],
@@ -57,6 +62,11 @@ class ReviewController extends Controller
     // Update an existing review
     public function update($reviewId, $title, $rating, $reviewText)
     {
+        if (empty($reviewId) || empty($title) || empty($rating) || empty($reviewText)) {
+            ResponseService::Error("Missing required fields: reviewId, title, rating, or reviewText", 400);
+            return;
+        }
+
         // Validate field lengths
         $this->validateFields(
             ['title' => $title, 'reviewText' => $reviewText],
