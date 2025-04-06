@@ -128,7 +128,7 @@ class GameController extends Controller
             // Upload the new image
             $imagePath = $this->uploadImage($_FILES['image']);
             if (!$imagePath) {
-                ResponseService::Error("Image upload failed", 500);
+                ResponseService::Error("Image uploaded unsuccessfully, please try a different image. If this issue persists while you are pasting images from your clipboard, try using images from your files.", 500);
             }
         } elseif (!isset($_FILES['image'])) {
             // Keep the current image path if no new image is uploaded or if it's undefined
