@@ -15,7 +15,7 @@ class EnvService
         $_ENV["MYSQL_CHARSET"] = "utf8mb4"; // You can keep this if necessary
 
         $_ENV["ENV"] = "production";
-        $_ENV["JWT_SECRET"] = ""; // Your JWT secret key
+        $_ENV["JWT_SECRET"] = "nLJ9gbjAMhkIViQ1AHB+yJIajSFmQ0vnJ3x3Vjvnprs="; // Your JWT secret key
         $_ENV["MYSQL_URL"] = "mysql://root:QthwvNaULUiZXuyReCjjpxjfNRrpxrlS@mysql.railway.internal:3306/railway"; // Corrected: Connection URL for MySQL
     }
 }
