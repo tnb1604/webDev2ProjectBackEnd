@@ -1,19 +1,17 @@
-# Use an official PHP image as the base
-FROM php:8.2-fpm-alpine
-
-# Update package manager and install security updates
-RUN apk update && apk upgrade --no-cache
+FROM php:8.2-cli-alpine
 
 WORKDIR /app
 
-# Install necessary PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql
+# Install PHP extensions
+RUN apk update && apk add --no-cache \
+    pdo_mysql \
+    && docker-php-ext-install pdo pdo_mysql
 
-# Copy application files
+# Copy app files
 COPY . .
 
-# Expose port 9000 for PHP-FPM
-EXPOSE 9000
+# Expose the correct port
+EXPOSE 8000
 
-# Start PHP-FPM
-CMD ["php-fpm"]
+# Serve app/public as the web root
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "app/public"]
