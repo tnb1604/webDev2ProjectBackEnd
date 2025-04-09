@@ -7,15 +7,15 @@ class EnvService
     // Initialize env variables
     static function Init()
     {
-        // Database environment variables from .env file
-        $_ENV["DB_HOST"] = getenv("DB_HOST");
-        $_ENV["DB_NAME"] = getenv("DB_NAME");
-        $_ENV["DB_USER"] = getenv("DB_USER");
-        $_ENV["DB_PASSWORD"] = getenv("DB_PASSWORD");
-        $_ENV["DB_CHARSET"] = getenv("DB_CHARSET");
+        // Database environment variables from Railway configuration
+        $_ENV["MYSQL_HOST"] = "mysql.railway.internal"; // Corrected: MySQL internal hostname
+        $_ENV["MYSQL_DATABASE"] = "railway"; // Corrected: Database name
+        $_ENV["MYSQL_USER"] = "root"; // Corrected: Username for MySQL
+        $_ENV["MYSQL_PASSWORD"] = "QthwvNaULUiZXuyReCjjpxjfNRrpxrlS"; // Corrected: MySQL password
+        $_ENV["MYSQL_CHARSET"] = "utf8mb4"; // You can keep this if necessary
 
-        $_ENV["ENV"] = getenv("ENV");
-        $_ENV["JWT_SECRET"] = getenv("JWT_SECRET");
-        $_ENV["MYSQL_URL"] = getenv("MYSQL_URL");
+        $_ENV["ENV"] = "production";
+        $_ENV["JWT_SECRET"] = ""; // Your JWT secret key
+        $_ENV["MYSQL_URL"] = "mysql://root:QthwvNaULUiZXuyReCjjpxjfNRrpxrlS@mysql.railway.internal:3306/railway"; // Corrected: Connection URL for MySQL
     }
 }
