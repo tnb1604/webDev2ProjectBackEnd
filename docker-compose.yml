@@ -8,6 +8,10 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./app:/app
+    restart: unless-stopped
+    depends_on:
+      - php
+      - mysql
 
   php:
     build:
@@ -17,32 +21,44 @@ services:
     volumes:
       - ./app:/app
     environment:
-      MYSQL_URL: mysql://root:QthwvNaULUiZXuyReCjjpxjfNRrpxrlS@mysql:3306/railway
-      MYSQL_HOST: mysql
-      MYSQL_DATABASE: railway
-      MYSQL_USER: root
-      MYSQL_PASSWORD: QthwvNaULUiZXuyReCjjpxjfNRrpxrlS
+      MYSQL_URL: ${MYSQL_URL}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_CHARSET: utf8mb4
+    restart: unless-stopped
+    depends_on:
+      - mysql
 
   phpmyadmin:
     image: phpmyadmin:latest
     environment:
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: QthwvNaULUiZXuyReCjjpxjfNRrpxrlS
+      PMA_HOST: ${MYSQL_HOST}
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - 8080:80
+    restart: unless-stopped
+    depends_on:
+      - mysql
 
   mysql:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: QthwvNaULUiZXuyReCjjpxjfNRrpxrlS
-      MYSQL_DATABASE: railway
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     volumes:
       - mysqldata:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 volumes:
   mysqldata: {}

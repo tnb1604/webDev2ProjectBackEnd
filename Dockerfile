@@ -1,10 +1,19 @@
-# Use Docker Compose to build and run the app
-FROM docker/compose:latest
+# Use an official PHP image as the base
+FROM php:8.2-fpm-alpine
+
+# Update package manager and install security updates
+RUN apk update && apk upgrade --no-cache
 
 WORKDIR /app
 
-# Copy the necessary files
+# Install necessary PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Copy application files
 COPY . .
 
-# Default command to run Docker Compose
-CMD ["docker-compose", "up"]
+# Expose port 9000 for PHP-FPM
+EXPOSE 9000
+
+# Start PHP-FPM
+CMD ["php-fpm"]
