@@ -21,11 +21,11 @@ services:
     volumes:
       - ./app:/app
     environment:
-      MYSQL_URL: "mysql://root:QthwvNaULUiZXuyReCjjpxjfNRrpxrlS@mysql:3306/railway"
+      MYSQL_URL: "mysql://root:laYzFqVRqEmavMRfxctHnKAIgmRvTClY@mysql:3306/railway"
       MYSQL_HOST: "mysql"
       MYSQL_DATABASE: "railway"
       MYSQL_USER: "root"
-      MYSQL_PASSWORD: "QthwvNaULUiZXuyReCjjpxjfNRrpxrlS"
+      MYSQL_PASSWORD: "laYzFqVRqEmavMRfxctHnKAIgmRvTClY"
       MYSQL_CHARSET: "utf8mb4"
     restart: unless-stopped
     depends_on:
@@ -36,7 +36,7 @@ services:
     environment:
       PMA_HOST: "mysql"
       PMA_USER: "root"
-      PMA_PASSWORD: "QthwvNaULUiZXuyReCjjpxjfNRrpxrlS"
+      PMA_PASSWORD: "laYzFqVRqEmavMRfxctHnKAIgmRvTClY"
     ports:
       - 8080:80
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "QthwvNaULUiZXuyReCjjpxjfNRrpxrlS"
+      MYSQL_ROOT_PASSWORD: "laYzFqVRqEmavMRfxctHnKAIgmRvTClY"
       MYSQL_DATABASE: "railway"
     ports:
       - "3306:3306"
