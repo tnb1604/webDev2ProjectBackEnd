@@ -4,10 +4,8 @@ WORKDIR /app
 
 # Install dependencies
 RUN apk update && apk add --no-cache \
-    pdo \
-    pdo_mysql \
     mysql-client \
-    && docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-install pdo_mysql
 
 # Copy app files
 COPY . .
