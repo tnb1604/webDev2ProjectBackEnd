@@ -6,15 +6,16 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./app:/app
+      # Ensure nginx.conf is world-readable and relabeled for SELinux: chmod 644 ./nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro,z
+      - ./app:/app:z
   php:
     build:
       context: .
       dockerfile: PHP.Dockerfile
     working_dir: /app
     volumes:
-      - ./app:/app
+      - ./app:/app:z
   mysql:
     image: mariadb:latest
     environment:
@@ -24,7 +25,8 @@ services:
       MYSQL_DATABASE: developmentdb
     volumes:
       - mysqldata:/var/lib/mysql
-      - ./sql:/docker-entrypoint-initdb.d
+      # Ensure ./sql and its contents are readable and relabeled for SELinux: chmod -R 755 ./sql
+      - ./sql:/docker-entrypoint-initdb.d:z
     ports:
       - 3306:3306
 
